@@ -1,8 +1,18 @@
 {
+<<<<<<< HEAD
     "files.associations": {
         "*.ejs": "html",
         "iostream": "cpp",
         "ostream": "cpp",
         "xutility": "cpp"
     }
+=======
+  "files.associations": {
+    "*.ejs": "html",
+    "ostream": "cpp",
+    "system_error": "cpp",
+    "xtr1common": "cpp",
+    "xutility": "cpp"
+  }
+>>>>>>> 368b427 (first commit)
 }
