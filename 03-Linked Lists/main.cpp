@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 class Node { 
     public:
         int value;
@@ -39,35 +40,35 @@ class LinkedList {
 
         void printList() {
             Node* temp = head;
-            if (temp == nullptr) {
-                cout << "empty";
-            } else {
-                while (temp != nullptr) {
-                    cout << temp->value;
-                    temp = temp->next;
-                    if (temp != nullptr) {
-                        cout << " -> ";
-                    }
-                }
+            while (temp != nullptr) {
+                cout << temp->value << endl;
+                temp = temp->next;
             }
-            cout << endl;
         }
 
-        Node* getHead() {
-            return head;
+        void getHead() {
+            if (head == nullptr) {
+                cout << "Head: nullptr" << endl;
+            } else {
+                cout << "Head: " << head->value << endl;
+            }
         }
 
-        Node* getTail() {
-            return tail; 
+        void getTail() {
+            if (tail == nullptr) {
+                cout << "Tail: nullptr" << endl;
+            } else { 
+                cout << "Tail: " << tail->value << endl;
+            }  
         }
 
-        int getLength() {
-            return length;
+        void getLength() {
+            cout << "Length: " << length << endl;
         }
 
         void append(int value) {
             Node* newNode = new Node(value);
-            if (length == 0) {
+            if (head == nullptr) {
                 head = newNode;
                 tail = newNode;
             } else {
@@ -78,154 +79,156 @@ class LinkedList {
         }
 
         void deleteLast() {
-            if (length == 0) return;
             Node* temp = head;
-            if (length == 1) {
+            if(head == nullptr){
+                return;
+            }
+            if(length == 1){
                 head = nullptr;
                 tail = nullptr;
-            } else {
-                Node* pre = head;
-                while(temp->next) {
-                    pre = temp;
+                length --;
+                delete temp;
+            }else{
+                while (temp)
+                {
+                    if(temp->next == tail){
+                        temp->next = nullptr;
+                        delete tail;
+                        tail = temp;
+                        length--;
+                        break;
+                    }
                     temp = temp->next;
                 }
-                tail = pre;
-                tail->next = nullptr;
             }
-            delete temp;
-            length--;            
         }
-
         void prepend(int value) {
             Node* newNode = new Node(value);
-            if (length == 0) {
+            if(head == nullptr){
                 head = newNode;
                 tail = newNode;
-            } else {
+            }else{
                 newNode->next = head;
                 head = newNode;
             }
             length++;
         }
-
-       void deleteFirst() {
-            if (length == 0) return;
-            Node* temp = head;
-            if (length == 1) {
+        void deleteFirst() {
+            Node* pre = head;
+            if(head == nullptr){
+                return;
+            }else if(length == 1){
                 head = nullptr;
                 tail = nullptr;
-            } else {
-                head = head->next;
+                length = 0;
+            }else{
+                head = pre->next;
+                delete pre;
+                length--;
             }
-            delete temp;
-            length--;
         }
-
         Node* get(int index) {
-            if (index < 0 || index >= length) return nullptr;
+            if(index < 0 || index >= length){
+                return nullptr;
+            }
             Node* temp = head;
-            for (int i = 0; i < index; ++i) {
+            for(int i = 0; i < index; i++){
                 temp = temp->next;
             }
             return temp;
         }
 
         bool set(int index, int value) {
-            Node* temp = get(index);
-            if (temp) {
-                temp->value = value;
-                return true;
-            } 
-            return false;
+            if(index < 0 || index >= length){
+                return false;
+            }
+            Node* temp = head;
+            for(int i = 0; i < index; i++){
+                temp = temp->next;
+            }
+            temp->value = value;
+            return true;
         }
 
         bool insert(int index, int value) {
-            if (index < 0 || index > length) return false;
-            if (index == 0) {
-                prepend(value);
-                return true;
-            }
-            if (index == length) {
-                append(value);
-                return true;
-            }
             Node* newNode = new Node(value);
-            Node* temp = get(index - 1);
-            newNode->next = temp->next;
-            temp->next = newNode;
-            length++;
+            if(index < 0 || index > length){
+                return false;
+            }
+            if(index == length){
+                append(value);
+            }else if(index == 0){
+                prepend(value);
+            }else {
+                Node* temp = get(index -1);
+                newNode->next = temp->next;
+                temp->next = newNode;
+                length++;
+            }
             return true;
-        }       
-
-        void deleteNode(int index) {
-            if (index < 0 || index >= length) return;
-            if (index == 0) return deleteFirst();
-            if (index == length - 1) return deleteLast();
-
-            Node* prev = get(index - 1);
-            Node* temp = prev->next;
-
-            prev->next = temp->next;
-            delete temp;
-            length--;        
+        }
+        void deleteNode(int index){
+            Node* temp = head;
+            if(index < 0 || index >= length){
+                return;
+            }
+            if(index == 0){
+                deleteFirst();
+            }else if(index == length - 1 ){
+                deleteLast();
+            }else{
+                Node* pre = get(index-1);
+                temp = pre->next;
+                pre->next = temp->next;
+                delete temp;
+                length--;
+            }
         }
 
-        //   +======================================================+
-        //   |                 WRITE YOUR CODE HERE                 |
-        //   | Description:                                         |
-        //   | - Reverse the linked list                            |
-        //   | - Return type: void                                  |
-        //   |                                                      |
-        //   | Tips:                                                |
-        //   | - You'll need 3 pointers: before, temp, after        |
-        //   | - Loop through all nodes                             |
-        //   | - Update 'next' pointers to reverse direction        |
-        //   | - Swap head and tail pointers                        |
-        //   | - Check output from Test.cpp in "User logs"          |
-        //   +======================================================+
         void reverse(){
             Node* temp = head;
+            Node* before = nullptr;
+            Node* pre = temp->next;
             head = tail;
             tail = temp;
-            Node* after = nullptr;
-            Node* before = nullptr;
-
-            for(int i = 0; i < length; i++){
-                after = temp ->next;
-                temp-> next = before;
+            for(int i=0; i < length; i++){
+                temp->next = before;
                 before = temp;
-                temp = after;
+                temp = pre;
+                pre = temp->next;
             }
         }
-
 };
+
 
 
 int main() {
         
-    LinkedList* myLinkedList = new LinkedList(8);
-    myLinkedList->append(5);
-    myLinkedList->append(6);
+    LinkedList* myLinkedList = new LinkedList(1);
+    myLinkedList->append(2);
+    myLinkedList->append(3);
     myLinkedList->reverse();
+
 
     myLinkedList->getHead();
     myLinkedList->getTail();
     myLinkedList->getLength();
-    
-    cout << "\nLinked List:\n";
-    myLinkedList->printList();
+
+    cout << endl << "Linked List:" << endl;
+    myLinkedList->printList();  
+
 
     /*  
-        EXPECTED OUTPUT:
-    	----------------
-        Head: 4
-        Tail: 4
-        Length: 1
+    	EXPECTED OUTPUT:
+        ----------------
+        Head: 1
+        Tail: 2
+        Length: 2
 
         Linked List:
-        4
+        1
+        2
 
     */
-       
+        
 }
-
