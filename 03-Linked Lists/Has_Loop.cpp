@@ -114,18 +114,50 @@ class LinkedList {
             return false;
         } 
 
+        //  LL: Find Kth Node From End ( ** Interview Question) WITHOUT USING THE LENGTH
+        // 1 -> 2 -> 3 -> 4 -> 5 -> nullptr 
+        // => ll.findKthFromEnd(2) : 4
+        //   +======================================================+
+        //   |                 WRITE YOUR CODE HERE                 |
+        //   | Description:                                         |
+        //   | - Find the k-th node from the end of the list        |
+        //   | - Return type: Node*                                 |
+        //   |                                                      |
+        //   | Tips:                                                |
+        //   | - Use two pointers: 'slow' and 'fast'                |
+        //   | - Move 'fast' k nodes ahead first                    |
+        //   | - If 'fast' reaches null, k is too large             |
+        //   | - Then move both 'slow' and 'fast' until end         |
+        //   | - Return 'slow' as the k-th node from the end        |
+        //   +======================================================+
+        Node* findKthFromEnd(int k){
+            Node* after = head;
+            Node* before = head;
+            while(k !=1){
+                after = after->next;
+                if(after == nullptr) return nullptr;
+                k--;
+            }
+            while(after && after->next){
+                after = after->next;
+                before = before->next;
+            }
+            return before;
+        }
 };
 
 int main(){
     LinkedList* mylist = new LinkedList(3);
     mylist->append(9);
     mylist->append(10);
+    mylist->append(12);
+    mylist->append(13);
 
     cout << "My List" << endl;
     mylist->printList();
 
     cout << "arg" << endl;
-    cout << mylist->hasLoop()->value << endl;
+    cout << mylist->findKthFromEnd(3)->value << endl;
 
 }
 
