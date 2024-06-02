@@ -3,6 +3,15 @@
     "*.ejs": "html",
     "xstring": "cpp",
     "stack": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "vector": "cpp",
+    "unordered_map": "cpp",
+    "algorithm": "cpp",
+    "list": "cpp",
+    "xhash": "cpp",
+    "utility": "cpp",
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xutility": "cpp"
   }
 }
