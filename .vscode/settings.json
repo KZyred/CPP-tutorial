@@ -1,12 +1,17 @@
 {
   "files.associations": {
     "*.ejs": "html",
-    "ostream": "cpp",
-    "system_error": "cpp",
-    "xtr1common": "cpp",
-    "xutility": "cpp",
-    "xstring": "cpp"
-  },
-  "editor.formatOnSave": true,
-  "code-runner.clearPreviousOutput": true
+    "xstring": "cpp",
+    "stack": "cpp",
+    "iostream": "cpp",
+    "vector": "cpp",
+    "unordered_map": "cpp",
+    "algorithm": "cpp",
+    "list": "cpp",
+    "xhash": "cpp",
+    "utility": "cpp",
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xutility": "cpp"
+  }
 }
