@@ -1,8 +1,7 @@
 #include <iostream>
-#include "03-Linked Lists/Reverse_Between.cpp"
+#include "04-Doubly Linked List/Swap_Nodes_in_Pairs.cpp"
 
 using namespace std;
-
 
 //  +=====================================================+
 //  |                                                     |
@@ -13,168 +12,63 @@ using namespace std;
 //  |                                                     |
 //  +=====================================================+
 
+static void test()
+{
 
-static void test() {
-    // Helper function to check pass/fail
-    auto checkTestResult = [](bool condition) {
-        cout << (condition ? "PASS" : "FAIL") << endl;
-    };
-
-    // Test: ReverseBetweenEmptyList
+    // Test: Swap Pairs with Single Node
     {
-        cout << "\n------ Test: ReverseBetweenEmptyList ------\n";
-        cout << "reverseBetween( 0, 2 )\n";
-        
-        LinkedList list(1);
-        list.makeEmpty();
-        
-        cout << "BEFORE:    ";
+        cout << "\n----- Test: Swap Pairs with Single Node -----\n";
+        DoublyLinkedList list(1);
+        cout << "DLL before swapping pairs:\n";
         list.printList();
-        
-        list.reverseBetween(0, 2);
-        
-        cout << "AFTER:     ";
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
         list.printList();
-        
-        checkTestResult(list.getLength() == 0);
+        int value = list.getHead()->value;
+        cout << "Head value after swapping pairs: " << value << " - EXPECTED: 1\n";
+        cout << (value == 1 ? "PASS\n" : "FAIL\n");
     }
 
-    // Test: ReverseBetweenSingleElement
+    // Test: Swap Pairs with Two Nodes
     {
-        cout << "\n------ Test: ReverseBetweenSingleElement ------\n";
-        cout << "reverseBetween( 0, 0 )\n";
-        
-        LinkedList list(1);
-        
-        cout << "BEFORE:    ";
-        list.printList();
-        
-        list.reverseBetween(0, 0);
-        
-        cout << "AFTER:     ";
-        list.printList();
-        
-        Node* head = list.getHead();
-        checkTestResult(head && head->value == 1);
-    }
-
-    // Test: ReverseBetweenBothArgumentsSameNumber
-    {
-        cout << "\n------ Test: ReverseBetweenBothArgumentsSameNumber ------\n";
-        cout << "reverseBetween( 1, 1 )\n";
-        
-        LinkedList list(1);
+        cout << "\n----- Test: Swap Pairs with Two Nodes -----\n";
+        DoublyLinkedList list(1);
         list.append(2);
-        list.append(3);
-        
-        cout << "BEFORE:    ";
+        cout << "DLL before swapping pairs:\n";
         list.printList();
-        
-        list.reverseBetween(1, 1);
-        
-        cout << "AFTER:     ";
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
         list.printList();
-        
-        Node* head = list.getHead();
-        checkTestResult(
-          head && 
-          head->value == 1 && 
-          head->next->value == 2 && 
-          head->next->next->value == 3
-        );
+        int headValue = list.getHead()->value;
+        int nextValue = list.getHead()->next->value;
+        cout << "Head value after swapping pairs: " << headValue << " - EXPECTED: 2\n";
+        cout << "Next value after swapping pairs: " << nextValue << " - EXPECTED: 1\n";
+        cout << (headValue == 2 && nextValue == 1 ? "PASS\n" : "FAIL\n");
     }
 
-    // Test: ReverseBetweenMultipleElements
+    // Test: Swap Pairs with Multiple Nodes
     {
-        cout << "\n------ Test: ReverseBetweenMultipleElements ------\n";
-        cout << "reverseBetween( 1, 4 )\n";
-        
-        LinkedList list(1);
+        cout << "\n----- Test: Swap Pairs with Multiple Nodes -----\n";
+        DoublyLinkedList list(1);
         list.append(2);
         list.append(3);
         list.append(4);
-        list.append(5);
-        list.append(6);
-        
-        cout << "BEFORE:    ";
+        cout << "DLL before swapping pairs:\n";
         list.printList();
-        
-        list.reverseBetween(1, 4);
-        
-        cout << "AFTER:     ";
+        list.swapPairs();
+        cout << "\nDLL after swapping pairs:\n";
         list.printList();
-        
-        // Check condition
-        Node* head = list.getHead();
-        checkTestResult(
-          head && 
-          head->value == 1 &&
-          head->next->value == 5 &&
-          head->next->next->value == 4 &&
-          head->next->next->next->value == 3 &&
-          head->next->next->next->next->value == 2 && 
-          head->next->next->next->next->next->value == 6
-        );
+        // cout << "PASS/FAIL test: ";
+        cout << (list.getHead()->value == 2 &&
+                         list.getHead()->next->value == 1 &&
+                         list.getHead()->next->next->value == 4 &&
+                         list.getHead()->next->next->next->value == 3
+                     ? "PASS\n"
+                     : "FAIL\n");
     }
-
-    // Test: ReverseBetweenStartAtZero
-    {
-        cout << "\n------ Test: ReverseBetweenStartAtZero ------\n";
-        cout << "reverseBetween( 0, 2 )\n";
-        
-        LinkedList list(1);
-        list.append(2);
-        list.append(3);
-        list.append(4);
-        
-        cout << "BEFORE:    ";
-        list.printList();
-        
-        list.reverseBetween(0, 2);
-        
-        cout << "AFTER:     ";
-        list.printList();
-        
-        // Check condition
-        Node* head = list.getHead();
-        checkTestResult(
-          head && 
-          head->value == 3 &&
-          head->next->value == 2 &&
-          head->next->next->value == 1 &&
-          head->next->next->next->value == 4
-        );
-    }
-
-    // Test: ReverseBetweenEndAtLast
-    {
-        cout << "\n------ Test: ReverseBetweenMiddleToLast ------\n";
-        cout << "reverseBetween( 1, 2 )\n";
-        
-        LinkedList list(1);
-        list.append(2);
-        list.append(3);
-        
-        cout << "BEFORE:    ";
-        list.printList();
-        
-        list.reverseBetween(1, 2);
-        
-        cout << "AFTER:     ";
-        list.printList();
-        
-        // Check condition
-        Node* head = list.getHead();
-        checkTestResult(
-          head && 
-          head->value == 1 &&
-          head->next->value == 3 &&
-          head->next->next->value == 2
-        );
-    }
-    
 }
 
-int main(){
+int main()
+{
     test();
 }
