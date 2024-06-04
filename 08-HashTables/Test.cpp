@@ -1,77 +1,67 @@
 #include <iostream>
-#include "SubarraySum.cpp"
+#include "set_LongestSequence.cpp"
 #include <algorithm>
 #include <string>
 using namespace std;
 
+// Helper function to display test result
+void displayResult(vector<int> nums, int expected)
+{
+    cout << "\nInput vector: ";
+    for (int num : nums)
+        cout << num << " ";
+    cout << "\nEXPECTED: Longest consecutive sequence = " << expected;
+    int output = longestConsecutiveSequence(nums);
+    cout << "\nRETURNED: Longest consecutive sequence = " << output;
+    cout << (output == expected ? "\nPASS\n" : "\nFAIL\n");
+}
+
 void test()
 {
     {
-        cout << "\n----- Test: Empty Input -----\n";
-        vector<int> nums;
-        int target = 10;
-        vector<int> result = subarraySum(nums, target);
-        cout << "EXPECTED: No solution\n";
-        cout << "RETURNED: " << (result.empty() ? "No solution" : "Has solution") << "\n";
-        cout << (result.empty() ? "PASS\n" : "FAIL\n");
+        cout << "\n----- Test: Empty Vector -----\n";
+        vector<int> nums = {};
+        displayResult(nums, 0);
     }
-
-    {
-        cout << "\n----- Test: No Subarray Sum -----\n";
-        vector<int> nums{1, 2, 3, 4, 5};
-        int target = 100;
-        vector<int> result = subarraySum(nums, target);
-        cout << "EXPECTED: No solution\n";
-        cout << "RETURNED: " << (result.empty() ? "No solution" : "Has solution") << "\n";
-        cout << (result.empty() ? "PASS\n" : "FAIL\n");
-    }
-
-    {
-        cout << "\n----- Test: Entire Array -----\n";
-        vector<int> nums{3, 2, 5};
-        int target = 10;
-        vector<int> result = subarraySum(nums, target);
-        vector<int> expected{0, 2};
-        cout << "EXPECTED: Indices (0, 2)\n";
-        cout << "RETURNED: Indices (" << (result.empty() ? "" : to_string(result[0])) << ", "
-             << (result.empty() ? "" : to_string(result[1])) << ")\n";
-        cout << (result == expected ? "PASS\n" : "FAIL\n");
-    }
-
-    {
-        cout << "\n----- Test: Partial Array -----\n";
-        vector<int> nums{1, 2, 3, 4, 5};
-        int target = 9;
-        vector<int> result = subarraySum(nums, target);
-        vector<int> expected{1, 3};
-        cout << "EXPECTED: Indices (1, 3)\n";
-        cout << "RETURNED: Indices (" << (result.empty() ? "" : to_string(result[0])) << ", "
-             << (result.empty() ? "" : to_string(result[1])) << ")\n";
-        cout << (result == expected ? "PASS\n" : "FAIL\n");
-    }
-
     {
         cout << "\n----- Test: Single Element -----\n";
-        vector<int> nums{10};
-        int target = 10;
-        vector<int> result = subarraySum(nums, target);
-        vector<int> expected{0, 0};
-        cout << "EXPECTED: Indices (0, 0)\n";
-        cout << "RETURNED: Indices (" << (result.empty() ? "" : to_string(result[0])) << ", "
-             << (result.empty() ? "" : to_string(result[1])) << ")\n";
-        cout << (result == expected ? "PASS\n" : "FAIL\n");
+        vector<int> nums = {1};
+        displayResult(nums, 1);
     }
-
     {
-        cout << "\n----- Test: With Negative Numbers -----\n";
-        vector<int> nums{1, -2, 3, 4, -5, 6};
-        int target = 6;
-        vector<int> result = subarraySum(nums, target);
-        vector<int> expected{0, 3};
-        cout << "EXPECTED: Indices (0, 3)\n";
-        cout << "RETURNED: Indices (" << (result.empty() ? "" : to_string(result[0])) << ", "
-             << (result.empty() ? "" : to_string(result[1])) << ")\n";
-        cout << (result == expected ? "PASS\n" : "FAIL\n");
+        cout << "\n----- Test: All Duplicates -----\n";
+        vector<int> nums = {1, 1, 1, 1};
+        displayResult(nums, 1);
+    }
+    {
+        cout << "\n----- Test: No Sequence -----\n";
+        vector<int> nums = {1, 3, 5, 7};
+        displayResult(nums, 1);
+    }
+    {
+        cout << "\n----- Test: Single Sequence -----\n";
+        vector<int> nums = {1, 2, 3, 4};
+        displayResult(nums, 4);
+    }
+    {
+        cout << "\n----- Test: Multiple Sequences -----\n";
+        vector<int> nums = {1, 2, 3, 10, 11, 12};
+        displayResult(nums, 3);
+    }
+    {
+        cout << "\n----- Test: Unordered Sequence -----\n";
+        vector<int> nums = {4, 2, 3, 1};
+        displayResult(nums, 4);
+    }
+    {
+        cout << "\n----- Test: Negative Numbers -----\n";
+        vector<int> nums = {0, -1, -2};
+        displayResult(nums, 3);
+    }
+    {
+        cout << "\n----- Test: Mixed Numbers -----\n";
+        vector<int> nums = {1, 2, 0, -1};
+        displayResult(nums, 4);
     }
 }
 
