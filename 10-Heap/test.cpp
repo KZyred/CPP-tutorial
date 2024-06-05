@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MaxHeap.cpp"
+#include "minHeap.cpp"
 
 using namespace std;
 
@@ -14,42 +14,51 @@ using namespace std;
 
 static void test()
 {
-    Heap heap;
+    MinHeap heap;
 
     // Insert values into the heap
-    vector<int> values = {10, 20, 30, 5, 15, 25, 35};
+    vector<int> valuesToInsert = {35, 25, 15, 5, 20, 30, 10};
     cout << "Inserting values: ";
-    for (int value : values)
+    for (int value : valuesToInsert)
     {
         cout << value << " ";
         heap.insert(value);
+    }
+    cout << "\nInitial Heap: ";
+    heap.printHeap();
 
-        // Verify max heap property
+    // Remove values from the heap and test after each removal
+    while (!heap.getHeap().empty())
+    {
+        int removedValue = heap.remove();
+        cout << "\nRemoved Value: " << removedValue;
+        cout << "\nHeap after removal: ";
+        heap.printHeap();
+
+        // Verify min heap property
         const vector<int> &currentHeap = heap.getHeap();
-        bool isValidMaxHeap = true;
+        bool isValidMinHeap = true;
         for (size_t i = 0; i < currentHeap.size(); i++)
         {
             int left = 2 * i + 1;  // Calculating left child index
             int right = 2 * i + 2; // Calculating right child index
-            if (left < currentHeap.size() && currentHeap[i] < currentHeap[left])
+            if (left < currentHeap.size() && currentHeap[i] > currentHeap[left])
             {
-                isValidMaxHeap = false;
+                isValidMinHeap = false;
                 break;
             }
-            if (right < currentHeap.size() && currentHeap[i] < currentHeap[right])
+            if (right < currentHeap.size() && currentHeap[i] > currentHeap[right])
             {
-                isValidMaxHeap = false;
+                isValidMinHeap = false;
                 break;
             }
         }
 
-        cout << "\nHeap after insertion: ";
-        heap.printHeap();
-        cout << "Max Heap Property Valid? " << (isValidMaxHeap ? "Yes" : "No") << "\n";
+        cout << "\nMin Heap Property Valid? " << (isValidMinHeap ? "Yes" : "No") << "\n";
     }
 
-    // Final Heap structure
-    cout << "\nFinal Heap Structure: ";
+    // Check if heap is empty at the end
+    cout << "\nFinal Heap (Should be empty): ";
     heap.printHeap();
 }
 

@@ -51,6 +51,36 @@ public:
         return heap;
     }
 
+    void sinkDown(int index)
+    {
+        int maxIndex = index;
+        while (true)
+        {
+            int leftIndex = leftChild(index);
+            int rightIndex = rightChild(index);
+
+            if (leftIndex < heap.size() && heap[leftIndex] > heap[maxIndex])
+            {
+                maxIndex = leftIndex;
+            }
+
+            if (rightIndex < heap.size() && heap[rightIndex] > heap[maxIndex])
+            {
+                maxIndex = rightIndex;
+            }
+
+            if (maxIndex != index)
+            {
+                swap(index, maxIndex);
+                index = maxIndex;
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
     //   +===================================================+
     //   |              WRITE YOUR CODE HERE                 |
     //   | Description:                                      |
@@ -71,28 +101,6 @@ public:
     //   |   until the heap property is restored or the      |
     //   |   added node becomes the root of the heap.        |
     //   +===================================================+
-    // cách 1: không thành công
-    void insert2(int value)
-    {
-        if (heap.empty())
-        {
-            heap.push_back(value);
-        }
-        else
-        {
-            for (int i = 0; i < heap.size(); i++)
-            {
-                if (heap[i] < value)
-                {
-                    int temp = heap[i];
-                    heap[i] = value;
-                    value = temp;
-                }
-            }
-            heap.push_back(value);
-        }
-    }
-    // cách 2: tham khảo đáp án
     void insert(int value)
     {
         // tóm tắt:
@@ -119,5 +127,79 @@ public:
             swap(current, parent(current)); // thay đổi giá trị hai phần tử trong mảng, hàm viết sẵn
             current = parent(current);      // cập nhật lại index
         }
+    }
+    // cách 1: tự tư duy -> hơi dài
+    int remove1()
+    {
+        int maxHeap = 0;
+        if (heap.size() < 1)
+        {
+            return INT_MIN;
+        }
+        if (heap.size() == 1)
+        {
+            maxHeap = heap[0];
+            heap.pop_back();
+        }
+        else
+        {
+            maxHeap = heap[0];
+            swap(0, heap.size() - 1); // đổi chỗ đầu cuối
+            heap.pop_back();          // xóa cuối
+            // so sánh cha với 2 con
+            // -> cái nào lớn nhất -> cha
+            // lặp đến khi nào đến nút lá
+            int currentMax = heap[0];
+            int currentIndex = 0;
+            while (currentIndex < heap.size())
+            {
+                int leftIndex = leftChild(currentIndex);
+                int rightIndex = rightChild(currentIndex);
+                if (rightIndex >= heap.size())
+                {
+                    break;
+                }
+                if (heap[leftIndex] > currentMax && heap[leftIndex] > heap[rightIndex])
+                {
+                    swap(leftIndex, currentIndex);
+                    currentIndex = leftIndex;
+                }
+                else if (heap[rightIndex] > currentMax && heap[rightIndex] > heap[leftIndex])
+                {
+                    swap(rightIndex, currentIndex);
+                    currentIndex = rightIndex;
+                }
+                // else if (currentMax > heap[leftIndex] && heap[leftIndex] > heap[rightIndex])
+                else
+                {
+                    break;
+                }
+            }
+        }
+        return maxHeap;
+    }
+
+    // cách 2: ngắn gọn hơn
+    int remove()
+    {
+        if (heap.empty())
+        {
+            return INT_MIN;
+        }
+
+        int maxValue = heap.front();
+
+        if (heap.size() == 1)
+        {
+            heap.pop_back();
+        }
+        else
+        {
+            heap[0] = heap.back();
+            heap.pop_back();
+            sinkDown(0); // thực ra cũng dài như nhau, nhưng thằng này dùng hàm gọn hơn
+        }
+
+        return maxValue;
     }
 };
