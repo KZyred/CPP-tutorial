@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BubbleSort.cpp"
+#include "SelectionSort.cpp"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 0);
         cout << "\n";
-        bubbleSort(arr, 0);
+        selectionSort(arr, 0);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 0) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 0) ? "PASS\n" : "FAIL\n");
@@ -49,7 +49,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 1);
         cout << "\n";
-        bubbleSort(arr, 1);
+        selectionSort(arr, 1);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 1) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 1) ? "PASS\n" : "FAIL\n");
@@ -61,7 +61,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 5);
         cout << "\n";
-        bubbleSort(arr, 5);
+        selectionSort(arr, 5);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 5) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 5) ? "PASS\n" : "FAIL\n");
@@ -73,7 +73,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 5);
         cout << "\n";
-        bubbleSort(arr, 5);
+        selectionSort(arr, 5);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 5) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 5) ? "PASS\n" : "FAIL\n");
@@ -85,7 +85,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 11);
         cout << "\n";
-        bubbleSort(arr, 11);
+        selectionSort(arr, 11);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 11) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 11) ? "PASS\n" : "FAIL\n");
@@ -97,7 +97,7 @@ void test()
         cout << "Original Array: ";
         printArray(arr, 7);
         cout << "\n";
-        bubbleSort(arr, 7);
+        selectionSort(arr, 7);
         cout << "EXPECTED: true\n";
         cout << "RETURNED: " << (isSorted(arr, 7) ? "true" : "false") << "\n";
         cout << (isSorted(arr, 7) ? "PASS\n" : "FAIL\n");
