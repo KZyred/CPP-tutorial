@@ -32,7 +32,10 @@ void insertionSort(int array[], int size)
             }
             else
             {
-                break; // quan trọng
+                break; // quan trọng,
+                // nếu không có break nó sẽ đi so sánh tất cả array
+                // ta chỉ cần so sánh 2 cái liền kề, nhỏ hơn thì mới đổi
+                // vì mặc định tất cả trước đó đã đổi rùi, nếu lại duyệt lần nữa sẽ sai
             }
         }
     }
