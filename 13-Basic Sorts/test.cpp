@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "LL_BubbleSort.cpp"
+#include "LL_SelectionSort.cpp"
 
 using namespace std;
 
@@ -45,7 +45,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
@@ -62,7 +62,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
@@ -80,7 +80,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
@@ -100,7 +100,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
@@ -120,7 +120,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
@@ -140,7 +140,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.bubbleSort();
+        list.selectionSort();
 
         cout << "After: ";
         list.printList();
