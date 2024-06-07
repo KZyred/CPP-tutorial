@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "LL_SelectionSort.cpp"
+#include "LL_InsertionSort.cpp"
 
 using namespace std;
 
@@ -16,13 +16,13 @@ using namespace std;
 static void test()
 {
 
-    // Helper function to check test result
+    // Check test result: PASS or FAIL
     auto checkTestResult = [](bool condition)
     {
         cout << (condition ? "PASS" : "FAIL") << endl;
     };
 
-    // Function to convert linked list to vector
+    // Convert linked list to vector
     auto listToVector = [](LinkedList &list)
     {
         vector<int> result;
@@ -45,7 +45,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
@@ -62,7 +62,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
@@ -80,7 +80,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
@@ -100,7 +100,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
@@ -120,7 +120,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
@@ -140,7 +140,7 @@ static void test()
         cout << "Before: ";
         list.printList();
 
-        list.selectionSort();
+        list.insertionSort();
 
         cout << "After: ";
         list.printList();
