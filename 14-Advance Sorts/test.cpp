@@ -1,118 +1,113 @@
 #include <iostream>
-#include <vector>
-#include "MergeTwoSortedLL.cpp"
+#include <algorithm> // for std::is_sorted
+#include "quickSort.cpp"
 
 using namespace std;
 
-//  +=====================================================+
-//  |                                                     |
-//  |          THE TEST CODE BELOW WILL PRINT             |
-//  |              OUTPUT TO "USER LOGS"                  |
-//  |                                                     |
-//  |  Use the output to test and troubleshoot your code  |
-//  |                                                     |
-//  +=====================================================+
-
-static void test()
+void printArray(int arr[], int size)
 {
-
-    // Check test result: PASS or FAIL
-    auto checkTestResult = [](bool condition)
+    cout << "[";
+    for (int i = 0; i < size; i++)
     {
-        cout << (condition ? "PASS" : "FAIL") << endl;
-    };
+        cout << arr[i];
+        if (i != size - 1)
+        {
+            cout << ", ";
+        }
+    }
+    cout << "]";
+}
 
-    // Test 1: MergeTwoEmptyLists
+void test()
+{
     {
-        cout << "\n------ Test: MergeTwoEmptyLists ------\n";
-
-        LinkedList list1(0);
-        list1.deleteFirst();
-        LinkedList list2(0);
-        list2.deleteFirst();
-
-        cout << "List1: ";
-        list1.printList();
-
-        cout << "List2: ";
-        list2.printList();
-
-        list1.merge(list2);
-
-        cout << "Merged: ";
-        list1.printList();
-
-        checkTestResult(list1.getLength() == 0);
+        cout << "\n----- Test: SimpleArray -----\n";
+        int array[] = {4, 2, 8, 5, 3};
+        cout << "Before: ";
+        printArray(array, 5);
+        cout << "\n";
+        quickSort(array, 0, 4);
+        cout << "After: ";
+        printArray(array, 5);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 5) ? "PASS\n" : "FAIL\n");
     }
 
-    // Test 2: MergeEmptyAndNonEmptyLists
     {
-        cout << "\n------ Test: MergeEmptyAndNonEmptyLists ------\n";
-
-        LinkedList list1(0);
-        list1.deleteFirst();
-        LinkedList list2(5);
-
-        cout << "List1: ";
-        list1.printList();
-
-        cout << "List2: ";
-        list2.printList();
-
-        list1.merge(list2);
-
-        cout << "Merged: ";
-        list1.printList();
-
-        checkTestResult(list1.getLength() == 1 &&
-                        list1.getHead()->value == 5 &&
-                        list1.getTail()->value == 5);
+        cout << "\n----- Test: AllElementsEqual -----\n";
+        int array[] = {5, 5, 5, 5, 5};
+        cout << "Before: ";
+        printArray(array, 5);
+        cout << "\n";
+        quickSort(array, 0, 4);
+        cout << "After: ";
+        printArray(array, 5);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 5) ? "PASS\n" : "FAIL\n");
     }
 
-    // Test 3: MergeTwoNonEmptyLists
     {
-        cout << "\n------ Test: MergeTwoNonEmptyLists ------\n";
-
-        LinkedList list1(3);
-        list1.append(4);
-        LinkedList list2(1);
-        list2.append(2);
-
-        cout << "List1: ";
-        list1.printList();
-
-        cout << "List2: ";
-        list2.printList();
-
-        list1.merge(list2);
-
-        cout << "Merged: ";
-        list1.printList();
-
-        checkTestResult(list1.getLength() == 4); // Additional checks could be added
+        cout << "\n----- Test: AlreadySorted -----\n";
+        int array[] = {1, 2, 3, 4, 5};
+        cout << "Before: ";
+        printArray(array, 5);
+        cout << "\n";
+        quickSort(array, 0, 4);
+        cout << "After: ";
+        printArray(array, 5);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 5) ? "PASS\n" : "FAIL\n");
     }
 
-    // Test 4: MergeDifferentLengthLists
     {
-        cout << "\n------ Test: MergeDifferentLengthLists ------\n";
+        cout << "\n----- Test: ReverseSorted -----\n";
+        int array[] = {5, 4, 3, 2, 1};
+        cout << "Before: ";
+        printArray(array, 5);
+        cout << "\n";
+        quickSort(array, 0, 4);
+        cout << "After: ";
+        printArray(array, 5);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 5) ? "PASS\n" : "FAIL\n");
+    }
 
-        LinkedList list1(1);
-        LinkedList list2(2);
-        list2.append(3);
-        list2.append(4);
+    {
+        cout << "\n----- Test: SingleElement -----\n";
+        int array[] = {3};
+        cout << "Before: ";
+        printArray(array, 1);
+        cout << "\n";
+        quickSort(array, 0, 0);
+        cout << "After: ";
+        printArray(array, 1);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 1) ? "PASS\n" : "FAIL\n");
+    }
 
-        cout << "List1: ";
-        list1.printList();
+    {
+        cout << "\n----- Test: MultipleDuplicates -----\n";
+        int array[] = {5, 3, 3, 2, 2};
+        cout << "Before: ";
+        printArray(array, 5);
+        cout << "\n";
+        quickSort(array, 0, 4);
+        cout << "After: ";
+        printArray(array, 5);
+        cout << "\n";
+        cout << (std::is_sorted(array, array + 5) ? "PASS\n" : "FAIL\n");
+    }
 
-        cout << "List2: ";
-        list2.printList();
-
-        list1.merge(list2);
-
-        cout << "Merged: ";
-        list1.printList();
-
-        checkTestResult(list1.getLength() == 4); // Additional checks could be added
+    {
+        cout << "\n----- Test: LargeArray -----\n";
+        int array[1000];
+        for (int i = 0; i < 1000; i++)
+        {
+            array[i] = rand() % 1000; // Values between 0 and 999
+        }
+        cout << "Array: SIZE 1000\n";
+        quickSort(array, 0, 999);
+        cout << (std::is_sorted(array, array + 1000) ? "PASS\n" : "FAIL\n");
     }
 }
 
